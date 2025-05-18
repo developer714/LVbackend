@@ -263,7 +263,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
         Route::controller(OrderController::class)->group(function () {
-            Route::get('getListView', 'getListView');
+            Route::get('getOrders', 'getOrders');
             Route::get(Order::LIST[URI] . '/{status}', 'index')->name('list');
             Route::get(Order::EXPORT_EXCEL[URI].'/{status}', 'exportList')->name('export-excel');
             Route::get(Order::GENERATE_INVOICE[URI].'/{id}', 'generateInvoice')->name('generate-invoice')->withoutMiddleware(['module:order_management']);

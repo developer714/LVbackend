@@ -20,10 +20,10 @@ return new class extends Migration
                 $table->timestamp('delivery_date')->nullable()->after('order_date');
             }
             if (!Schema::hasColumn('orders', 'buyer_id')) {
-                $table->foreignId('buyer_id')->after('delivery_date')->constrained('users');
+                $table->unsignedBigInteger('buyer_id')->nullable()->after('delivery_date');
             }
             if (!Schema::hasColumn('orders', 'center_id')) {
-                $table->foreignId('center_id')->after('buyer_id')->constrained('users');
+                $table->unsignedBigInteger('center_id')->nullable()->after('buyer_id');
             }
         });
     }
