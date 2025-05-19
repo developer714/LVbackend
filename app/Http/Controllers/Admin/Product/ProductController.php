@@ -711,4 +711,22 @@ class ProductController extends BaseController
         }
         return response()->json($product);
     }
+
+    public function updateProductById(Request $request, $id): JsonResponse
+    {
+        $product = $this->productRepo->getFirstWhere(params: ['id' => $id]);
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+        $data = $request->only([
+            'name', 'slug', 'product_type', 'category_id', 'sub_category_id', 'sub_sub_category_id',
+            'brand_id', 'unit', 'min_qty', 'refundable', 'unit_price', 'purchase_price', 'tax',
+            'tax_type', 'tax_model', 'discount', 'discount_type', 'current_stock', 'minimum_order_qty',
+            'details', 'free_shipping', 'status', 'featured_status', 'meta_title', 'meta_description',
+            'shipping_cost', 'multiply_qty', 'code', 'nation', 'amount', 'pv'
+        ]);
+        $this->productRepo->update(id: $id, data: $data);
+        $updatedProduct = $this->productRepo->getFirstWhere(params: ['id' => $id]);
+        return response()->json($updatedProduct);
+    }
 }
