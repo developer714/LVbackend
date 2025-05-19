@@ -228,6 +228,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
         Route::controller(ProductController::class)->group(function () {
 	        Route::get('getAllProducts', 'getAllProducts');
+            Route::get('getProductById/{id}', 'getProductById');
             Route::get(Product::LIST[URI] . '/{type}', 'index')->name('list');
             Route::get(Product::ADD[URI], 'getAddView')->name('add');
             Route::post(Product::ADD[URI], 'add')->name('store');

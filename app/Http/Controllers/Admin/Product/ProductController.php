@@ -700,4 +700,15 @@ class ProductController extends BaseController
             'result' => view(Product::MULTIPLE_PRODUCT_DETAILS[VIEW], compact('selectedProducts'))->render(),
         ]);
     }
+
+    public function getProductById($id): JsonResponse
+    {
+        $product = $this->productRepo->getFirstWhere(params: ['id' => $id], relations: [
+            'category', 'brand', 'reviews', 'rating', 'orderDetails', 'orderDelivered', 'digitalVariation', 'seoInfo'
+        ]);
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+        return response()->json($product);
+    }
 }
